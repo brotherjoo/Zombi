@@ -10,11 +10,16 @@ public class PlayerShooter : MonoBehaviour {
 
     private PlayerInput playerInput; // 플레이어의 입력
     private Animator playerAnimator; // 애니메이터 컴포넌트
+    private VoskSpeechRecognizer vosk_model;
 
     private void Start() {
         // 사용할 컴포넌트들을 가져오기
         playerInput = GetComponent<PlayerInput>();
         playerAnimator = GetComponent<Animator>();
+        vosk_model = FindObjectOfType<VoskSpeechRecognizer>();
+
+    if (vosk_model == null)
+        Debug.LogError("VoskSpeechRecognizer를 씬에서 찾을 수 없습니다!");
     }
 
     private void OnEnable() {
@@ -29,7 +34,7 @@ public class PlayerShooter : MonoBehaviour {
 
     private void Update() {
         // 입력을 감지하고 총 발사하거나 재장전
-        if (playerInput.fire)
+        if (vosk_model.fire)
         {
             // 발사 입력 감지시 총 발사
             gun.Fire();
